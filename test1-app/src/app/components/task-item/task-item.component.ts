@@ -1,4 +1,4 @@
-import { Component, OnInit, Input , Output } from '@angular/core';
+import { Component, OnInit, Input , Output, EventEmitter } from '@angular/core';
 import {Task} from '../../Task';
 
 @Component({
@@ -9,14 +9,21 @@ import {Task} from '../../Task';
 export class TaskItemComponent implements OnInit {
 
   @Input() task!: Task
+  @Output() onDeleteTask: EventEmitter<Task> = new EventEmitter();
+  @Output() onToggleReminder: EventEmitter<Task> = new EventEmitter();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  removeTask()
+  removeTask(task:Task)
   {
-    console.log("Insufficient privileges");
+    this.onDeleteTask.emit(task);
+  }
+
+  onToggle(task:Task)
+  {
+    this.onToggleReminder.emit(task);
   }
 }
